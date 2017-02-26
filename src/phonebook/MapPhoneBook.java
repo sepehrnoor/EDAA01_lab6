@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
  */
 public class MapPhoneBook implements PhoneBook, Serializable {
     private static final long serialVersionUID = 1L;
-    int size;
-    HashMap<String,HashSet<String>> book;
+    private int size;
+    private HashMap<String,HashSet<String>> book;
 
     public MapPhoneBook() {
         size = 0;
@@ -38,8 +38,7 @@ public class MapPhoneBook implements PhoneBook, Serializable {
     }
 
     public boolean removeNumber(String name, String number) {
-        if (!book.containsKey(name)) return false;
-        return book.get(name).remove(number);
+        return (book.containsKey(name)) && book.get(name).remove(number);
     }
 
     public Set<String> findNumbers(String name) {
@@ -50,9 +49,7 @@ public class MapPhoneBook implements PhoneBook, Serializable {
     }
 
     public Set<String> findNames(String number) {
-        HashSet<String> names = new HashSet<>();
-        names.addAll(book.entrySet().stream().filter(x -> x.getValue().contains(number)).map(Map.Entry::getKey).collect(Collectors.toCollection(HashSet::new)));
-        return names;
+        return book.entrySet().stream().filter(x -> x.getValue().contains(number)).map(Map.Entry::getKey).collect(Collectors.toCollection(HashSet::new));
     }
 
     public Set<String> names() {
