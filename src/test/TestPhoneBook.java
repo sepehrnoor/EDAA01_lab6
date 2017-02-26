@@ -2,7 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.Set;
 
 import org.junit.After;
@@ -299,7 +299,7 @@ public class TestPhoneBook {
 	@Test
 	public final void testManyPutAndRemove() {
 		java.util.Random random = new java.util.Random(123456);
-		HashSet<String> randStrings = new HashSet<>();
+		TreeSet<String> randStrings = new TreeSet<>();
 		for (int i = 0; i < 10000; i++) {
 			int r = random.nextInt(10000);
 			String s = String.valueOf(r);

@@ -2,7 +2,7 @@ package phonebook;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class MapPhoneBook implements PhoneBook, Serializable {
     private static final long serialVersionUID = 1L;
     private int size;
-    private HashMap<String,HashSet<String>> book;
+    private HashMap<String,TreeSet<String>> book;
 
     public MapPhoneBook() {
         size = 0;
@@ -22,7 +22,7 @@ public class MapPhoneBook implements PhoneBook, Serializable {
 
     public boolean put(String name, String number) {
         if (!book.containsKey(name)){
-            book.put(name,new HashSet<>());
+            book.put(name,new TreeSet<>());
             size++;
         }
         return book.get(name).add(number);
@@ -42,18 +42,18 @@ public class MapPhoneBook implements PhoneBook, Serializable {
     }
 
     public Set<String> findNumbers(String name) {
-        if (!book.containsKey(name)) return new HashSet<>();
-        HashSet<String> res = new HashSet<>();
+        if (!book.containsKey(name)) return new TreeSet<>();
+        TreeSet<String> res = new TreeSet<>();
         res.addAll(book.get(name));
         return res;
     }
 
     public Set<String> findNames(String number) {
-        return book.entrySet().stream().filter(x -> x.getValue().contains(number)).map(Map.Entry::getKey).collect(Collectors.toCollection(HashSet::new));
+        return book.entrySet().stream().filter(x -> x.getValue().contains(number)).map(Map.Entry::getKey).collect(Collectors.toCollection(TreeSet::new));
     }
 
     public Set<String> names() {
-        HashSet<String> res = new HashSet<>();
+        TreeSet<String> res = new TreeSet<>();
         res.addAll(book.keySet());
         return res;
     }

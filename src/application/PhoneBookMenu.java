@@ -6,7 +6,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import phonebook.PhoneBook;
 
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -72,7 +72,7 @@ public class PhoneBookMenu extends MenuBar {
         if (name.isPresent()) {
             Set<String> numbers = phoneBook.findNumbers(name.get());
             if (!numbers.isEmpty()) {
-                HashSet<String> nameOnly = new HashSet<>();
+                TreeSet<String> nameOnly = new TreeSet<>();
                 nameOnly.add(name.get());
                 nameListView.fillList(nameOnly);
                 nameListView.select(0);
@@ -87,7 +87,7 @@ public class PhoneBookMenu extends MenuBar {
     private void findPersons() {
         Optional<String> searchString = Dialogs.oneInputDialog("Find person(s) matching text", null, "Text");
         if (searchString.isPresent()) {
-            Set<String> names = phoneBook.names().stream().filter(x -> x.startsWith(searchString.get())).collect(Collectors.toCollection(HashSet::new));
+            Set<String> names = phoneBook.names().stream().filter(x -> x.startsWith(searchString.get())).collect(Collectors.toCollection(TreeSet::new));
             if (!names.isEmpty()) {
                 nameListView.fillList(names);
             } else {
